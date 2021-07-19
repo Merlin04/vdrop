@@ -1,64 +1,67 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import NextLink from "next/link";
+import { useEffect, useState } from "react";
+import { getDayNumber, MS_IN_DAY, START_DATE } from "../src/date";
+import Banner from "../src/ui/Banner";
+import Button from '../src/ui/Button';
+import Link from "../src/ui/Link";
+
+function dateTimeComponentToString(n: Number) {
+  return n.toString().padStart(2, "0");
+}
 
 export default function Home() {
+  function getTimeUntilNextDrop() {
+    const d = new Date((START_DATE - Date.now()) % MS_IN_DAY);
+    return `${dateTimeComponentToString(d.getUTCHours())}:${dateTimeComponentToString(d.getUTCMinutes())}:${dateTimeComponentToString(d.getUTCSeconds())}`;
+  }
+
+  const [timeUntilNextDrop, setTimeUntilNextDrop] = useState(getTimeUntilNextDrop);
+
+  useEffect(() => {
+    function setTimeUpdateTimeout() {
+      setTimeout(() => {
+        setTimeUntilNextDrop(getTimeUntilNextDrop());
+        setTimeUpdateTimeout();
+      }, 1000);
+    }
+    setTimeUpdateTimeout();
+  }, []);
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div>
+      <Banner>{timeUntilNextDrop} until next drop</Banner>
+      <h1>VDrop</h1>
+      <h2>Community-powered super-short daily video drops</h2>
+      <h3>How it works:</h3>
+      <ol>
+        <li>Sign in with your ZephyrNet account</li>
+        <li>Click record</li>
+        <li>Do something for 0.5 seconds</li>
+        <li>Your video will automatically upload, come back tomorrow to watch the drop you contributed to</li>
+      </ol>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <NextLink href="/contribute"><Button>Let's go</Button></NextLink>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+      {getDayNumber() > 1 && (
+        <h2><NextLink href="/viewer" passHref><Link>Check out today's drop</Link></NextLink></h2>
+      )}
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+      <h2>Why?</h2>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+      <p>VDrop is an experiment to try to capture the general feel of Zephyr without any specific details. The daily video archives an aspect of the trip very apparent to everyone onboard but invisible to everyone else.</p>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+      <h3>Justifications</h3>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+      <p>I've made some odd design decisions that I want to try to explain here.</p>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
+      <p>0.5 seconds: I don't want to give time for people to be able to create a meaningful video</p>
+      <p>Auto upload after record/no edit: This should be spontaneous, not planned at all</p>
+      <p>Drop format: Keep people coming back to the site and make the archive better</p>
+
+      <NextLink href="/contribute"><Button>Go make a video, seriously you should go do it right now</Button></NextLink>
+
+      <footer>
+        <p>Built by Benjamin Smith</p>
       </footer>
     </div>
   )

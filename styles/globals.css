@@ -14,3 +14,44 @@ a {
 * {
   box-sizing: border-box;
 }
+
+#__next {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+/* Fonts taken from Pangram Pangram */
+
+@font-face {
+  font-family: 'Supply Mono Ultralight';
+  src: url('Supply-UltraLight.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Supply Mono Light';
+  src: url('Supply-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Supply Mono Regular';
+  src: url('Supply-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Supply Mono Medium';
+  src: url('Supply-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Supply Mono Bold';
+  src: url('Supply-Bold.woff') format('woff');
+}
+
+@keyframes rotation {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}

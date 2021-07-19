@@ -8,11 +8,20 @@
     "start": "next start"
   },
   "dependencies": {
+    "@material-ui/styles": "^4.11.4",
+    "@types/dom-mediacapture-record": "^1.0.10",
+    "@types/multiparty": "^0.0.33",
+    "core-js": "^3.15.2",
+    "mmmagic": "^0.5.3",
+    "multiparty": "^4.2.2",
     "next": "11.0.0",
+    "next-connect": "^0.10.1",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@types/core-js": "^2.5.4",
+    "@types/mmmagic": "^0.4.30",
     "@types/react": "^17.0.6",
     "typescript": "^4.3.5"
   }
