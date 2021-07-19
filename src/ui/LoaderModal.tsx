@@ -1,7 +1,7 @@
 import Loader from "./Loader";
 import { styled } from "./theme";
 
-export default styled("div", {
+export default styled<{ message?: string }>("div", {
     width: "100vw",
     height: "100vh",
     position: "absolute",
@@ -9,7 +9,17 @@ export default styled("div", {
     top: 0,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
-}, {
-    children: <Loader/>
-});
+    justifyContent: "center",
+    flexDirection: "column",
+    "& > p": {
+        marginTop: "1rem"
+    }
+}, (props) => ({
+    children: (
+        <>
+            <Loader />
+            {props.message && <p>{props.message}</p>}
+        </>
+    )
+}));
+

@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
 import NextLink from "next/link";
 import { useEffect, useRef, useState } from "react";
+import BackLink from "../src/BackLink";
 import { getDayNumber } from "../src/date";
 import Button from "../src/ui/Button";
 import Input from "../src/ui/Input";
@@ -88,7 +89,7 @@ export default function Contribute() {
                 setCountdownTimeout(countdownLatest - 1);
             }
             else {
-                //setState(State.RECORDING);
+                setState(State.RECORDING);
             }
         }, 1000);
     }
@@ -175,7 +176,7 @@ export default function Contribute() {
 
     return (
         <div className={styles.root}>
-            <NextLink href="/" passHref><Link>Back to home page</Link></NextLink>
+            <BackLink />
             <h1>Contribute to the drop</h1>
 
             {state === State.PRERECORD && (
@@ -183,9 +184,9 @@ export default function Contribute() {
                     <h2>Before you start (don't worry, it's quick):</h2>
                     <ul>
                         <li>When you click record, there will be a short countdown, then recording will start</li>
-                        <li>Once the 0.5 seconds is up, your video will automatically be uploaded to the server. You don't get a chance to review or edit it</li>
+                        <li>Once the 1 second is up, your video will automatically be uploaded to the server. You don't get a chance to review or edit it</li>
                         <li>If you want me to delete your video, just come find me (Benjamin Smith) on the train. Don't do this unless absolutely necessary, the point is for the videos to be not perfect</li>
-                        <li>0.5 seconds is probably much shorter than you will expect</li>
+                        <li>1 second is probably much shorter than you will expect</li>
                     </ul>
 
                     <Stack direction="row">
@@ -217,7 +218,7 @@ export default function Contribute() {
 
             {(state === State.COUNTDOWN || state === State.RECORDING) && (
                 <>
-                    <video ref={videoRef} className={styles.video} autoPlay playsInline id={VIDEO_ID}>
+                    <video ref={videoRef} className={styles.video} autoPlay muted playsInline id={VIDEO_ID}>
                         I'm surprised you're even able to use this nextjs app in a browser that doesn't support the video element
                     </video>
                 </>

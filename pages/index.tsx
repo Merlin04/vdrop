@@ -36,7 +36,7 @@ export default function Home() {
       <ol>
         <li>Sign in with your ZephyrNet account</li>
         <li>Click record</li>
-        <li>Do something for 0.5 seconds</li>
+        <li>Do something for 1 second</li>
         <li>Your video will automatically upload, come back tomorrow to watch the drop you contributed to</li>
       </ol>
 
@@ -54,7 +54,7 @@ export default function Home() {
 
       <p>I've made some odd design decisions that I want to try to explain here.</p>
 
-      <p>0.5 seconds: I don't want to give time for people to be able to create a meaningful video</p>
+      <p>1 second: I don't want to give time for people to be able to create a meaningful video</p>
       <p>Auto upload after record/no edit: This should be spontaneous, not planned at all</p>
       <p>Drop format: Keep people coming back to the site and make the archive better</p>
 

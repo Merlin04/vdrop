@@ -21,8 +21,17 @@ export default async (req: NextApiRequest,
         return;
     }*/
 // TODO: fix path thing
-    const files = await readDir(path.join(process.env.NEXT_PRIVATE_UPLOADS_DIR as string, requestDay));
-
     res.statusCode = 200;
+    
+    let files: string[];
+    try {
+        files = await readDir(path.join(process.env.NEXT_PRIVATE_UPLOADS_DIR as string, requestDay));
+    }
+    catch(err) {
+        // It's probably just because the directory doesn't exist yet
+        res.json([]);
+        return;
+    }
+
     res.json(files);
 }

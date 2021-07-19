@@ -12,6 +12,7 @@ export const baseControlStyles: CreateCSSProperties<{}> = {
     }
 };
 
+// TODO: disable hover effect when disabled
 export default styled("button", {
     ...baseControlStyles,
     display: "inline-block",

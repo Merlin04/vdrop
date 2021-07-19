@@ -13,7 +13,10 @@ export const colors = {
     neutral: "#cccccc"
 };
 
-export function addPropsClassName(base: string, props: { className?: string }) {
+export function addPropsClassName<P extends { className?: string }>(
+    base: string,
+    props: P
+) {
     return {
         ...props,
         className: base + (props.className ? " " + props.className : "")
@@ -28,30 +31,43 @@ type StyledComponentConstraint =
 //type ReturnedComponentProps<Component extends keyof JSX.IntrinsicElements | React.ReactElement<ElementProps>, ElementProps extends BaseStyledComponentProps | never = never> = Component extends keyof JSX.IntrinsicElements ? JSX.IntrinsicElements[Component] : ElementProps;
 
 // TODO: forward refs
-export function styled<Component extends StyledComponentConstraint>(
+export function styled<
+    AdditionalProps extends {} = {},
+    // This shouldn't ever need to fall back to the default but I might as well provide a sensible value
+    Component extends StyledComponentConstraint = "div"
+>(
     component: Component,
     styles:
         | CSSProperties
         | CreateCSSProperties<{}>
         | PropsFunc<{}, CreateCSSProperties<{}>>,
-    overrideProps?: Partial<React.ComponentPropsWithRef<Component>>
+    overrideProps?:
+        | Partial<React.ComponentPropsWithRef<Component>>
+        | {
+              (
+                  props: React.ComponentPropsWithRef<Component> &
+                      AdditionalProps
+              ): React.ComponentPropsWithRef<Component>;
+          }
 ) {
     const useStyles = makeStyles(() => ({
         root: styles
     }));
 
-    return (
-        props: React.ComponentPropsWithRef<Component>
+    return React.forwardRef((
+        props: React.ComponentPropsWithRef<Component> & AdditionalProps,
+        ref
     ) => {
         const styles = useStyles();
-        return React.createElement(
-            component,
-            {
-                ...addPropsClassName(styles.root, props),
-                ...overrideProps
-            }
-        );
-    };
+        const styleAddedProps = addPropsClassName(styles.root, props);
+        return React.createElement(component, {
+            ref,
+            ...styleAddedProps,
+            ...(typeof overrideProps === "function"
+                ? overrideProps(styleAddedProps)
+                : overrideProps)
+        });
+    });
 }
 
 const useStyles = makeStyles(() => ({
