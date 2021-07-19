@@ -1,2 +1,3 @@
 #!/bin/bash
-yarn start
+
+yarn start -p $PORT
