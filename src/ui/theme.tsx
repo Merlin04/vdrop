@@ -4,7 +4,7 @@ import {
     makeStyles,
     PropsFunc
 } from "@material-ui/styles";
-import React, { Component } from "react";
+import React from "react";
 
 export const colors = {
     primary: "#19aeff",
@@ -28,9 +28,6 @@ type StyledComponentConstraint =
     | keyof JSX.IntrinsicElements
     | React.ElementType<BaseStyledComponentProps>;
 
-//type ReturnedComponentProps<Component extends keyof JSX.IntrinsicElements | React.ReactElement<ElementProps>, ElementProps extends BaseStyledComponentProps | never = never> = Component extends keyof JSX.IntrinsicElements ? JSX.IntrinsicElements[Component] : ElementProps;
-
-// TODO: forward refs
 export function styled<
     AdditionalProps extends {} = {},
     // This shouldn't ever need to fall back to the default but I might as well provide a sensible value
