@@ -1,3 +1,3 @@
 #!/bin/bash
 
-yarn start -p $PORT
+yarn start -p 3050
