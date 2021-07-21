@@ -71,7 +71,7 @@ const useStyles = makeStyles(() => ({
             height: "100%"
         },
         width: "100%",
-        maxHeight: "100%"
+        maxHeight: "calc(100% - 96.5px - 4rem)"
     }
 }));
 
