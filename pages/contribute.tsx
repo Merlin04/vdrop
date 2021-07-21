@@ -119,7 +119,7 @@ export default function Contribute() {
                     audio: true,
                     video: {
                         width: 1280,
-                        height: 1280
+                        height: 720
                     }
                 });
                 setCountdownTimeout();
@@ -187,6 +187,7 @@ export default function Contribute() {
                         <li>Once the 1 second is up, your video will automatically be uploaded to the server. You don't get a chance to review or edit it</li>
                         <li>If you want me to delete your video, just come find me (Benjamin Smith) on the train. Don't do this unless absolutely necessary, the point is for the videos to be not perfect</li>
                         <li>1 second is probably much shorter than you will expect</li>
+                        <li>PLEASE make sure your camera resolution is at least 1280*720, if it isn't it breaks ffmpeg (you should record in landscape mode)</li>
                     </ul>
 
                     <Stack direction="row">
